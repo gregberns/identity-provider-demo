@@ -82,8 +82,10 @@ You should see the users that have been added! Success!
   * "Fine Grain SAML Endpoint Configuration" > "Assertion Consumer Service POST Binding URL" : "http://localhost:3000/assert"
   * "Fine Grain SAML Endpoint Configuration" > "Logout Service POST Binding URL": "http://localhost:3000/logout" 
 
+
+//right now "Encrypt Assertions" needs to be off
 "Sign Assertion" True
-"Encrypt Assertions: true
+"Encrypt Assertions: false
 
 
 * Save
