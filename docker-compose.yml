@@ -1,0 +1,41 @@
+version: "3.7"
+
+services:
+  keycloak:
+    image: jboss/keycloak:6.0.1
+    ports:
+      - "8080:8080"
+    environment:
+      DB_VENDOR: postgres
+      DB_ADDR: db
+      DB_PORT: 5432
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_PASSWORD: password
+      KEYCLOAK_USER_FILE: /run/secrets/keycloak_user
+      KEYCLOAK_PASSWORD_FILE: /run/secrets/keycloak_password
+    secrets:
+      - keycloak_user
+      - keycloak_password
+
+  ldap:
+    image: rroemhild/test-openldap
+    ports:
+      - "389:389"
+      - "636:636"
+
+  db:
+    image: postgres:11.1-alpine
+    ports:
+      - target: 5432
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+    
+      
+secrets:
+  keycloak_user:
+    file: ./keycloak_user_file.txt
+  keycloak_password:
+    file: ./keycloak_password_file.txt
