@@ -1,11 +1,36 @@
 var saml2 = require('saml2-js');
 var fs = require('fs');
 var express = require('express');
+var session = require('express-session');
 var app = express();
+var hogan = require('hogan-express');
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+
+// Register '.mustache' extension with The Mustache Express
+app.set('view engine', 'html');
+app.set('views', require('path').join(__dirname, '/view'));
+app.engine('html', hogan);
+
+// A normal un-protected public URL.
+
+app.get('/', function (req, res) {
+  res.render('index');
+});
+
+var memoryStore = new session.MemoryStore();
+
+app.use(session({
+  secret: 'mySecret',
+  resave: false,
+  saveUninitialized: true,
+  store: memoryStore
+}));
+
+
+
  
 // Create service provider
 var sp_options = {

@@ -1,6 +1,6 @@
 # Identity Provider Demo
 
-## Purpose 
+## Purpose
 
 Demonstrate:
 
@@ -21,8 +21,8 @@ Some docs to help understand SAML and OAuth:
 
 * Standup Identity Provider (Complete)
 * Connect to IDP with 'Service Provider' for SSO (Complete)
-* Identity Provider provides OAuth token
-* Hook up Reverse-Proxy to handle API token validation
+* Identity Provider provides OAuth token (Complete)
+* Hook up Reverse-Proxy to handle API token validation ([using 'forward-auth'](https://github.com/gregberns/forward-auth))
 
 Future:
 * [Adding a Custom Theme to KeyCloak Login](https://github.com/jboss-dockerfiles/keycloak/blob/master/server/README.md#adding-a-custom-theme)
@@ -101,6 +101,17 @@ This configuration needs to be improved, it may not be completely correct.
 * Once created, go into "SAML Keys" tab
 * Copy the certificate key to `service-provider/cert-file.crt` and the private key to `service-provider/key-file.pem`
 * Then go to `Configure > Realm Settings > Keys > RSA256 > Certificate` and copy the cert to `service-provider/cert-file-idp.crt`
+
+
+### OAuth/OpenId Service Provider
+
+* Go to Configure > Clients
+* Select "Create"
+  * Client Id = "demo-oauth"
+  * Client Protocol = "openid-connect"
+  * Root Url: "http://localhost:8080/auth"
+* Save
+* "Valid Redirect URIs" : http://localhost:3001/
 
 ## Reverse-Proxy OpenId/OAuth Token Validation
 
