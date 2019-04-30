@@ -17,12 +17,23 @@ services:
     secrets:
       - keycloak_user
       - keycloak_password
+    networks:
+      - default
+      - api
+    labels:
+      - traefik.enable=true
+      - traefik.backend=keycloak
+      - traefik.frontend.rule=PathPrefix:/auth/
+      - traefik.port=8080
+    
 
   ldap:
     image: rroemhild/test-openldap
     ports:
       - "389:389"
       - "636:636"
+    networks:
+      - default
 
   db:
     image: postgres:11.1-alpine
@@ -32,10 +43,17 @@ services:
       POSTGRES_DB: keycloak
       POSTGRES_USER: keycloak
       POSTGRES_PASSWORD: password
-    
-      
+    networks:
+      - default
+
 secrets:
   keycloak_user:
     file: ./keycloak_user_file.txt
   keycloak_password:
     file: ./keycloak_password_file.txt
+
+networks:
+  default:
+  api:
+    driver: overlay
+    external: true
