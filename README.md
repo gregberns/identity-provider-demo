@@ -77,7 +77,7 @@ Then:
 * Test the Authentication
 * Save
 * "Syncronize all users"
-* Go to "Manage" > "Users" on the left panel
+* Go to "Manage" > "Users" on the left panel > Click "View all users"
 
 You should see the users that have been added! Success!
 
@@ -92,11 +92,15 @@ This configuration needs to be improved, it may not be completely correct.
   * "Client ID": "demo"
   * "Client Protocol": "saml"
   * "Client SAML Endpoint": "http://localhost:3000/"
+* "Save"
+* Update properties:
   * "IDP Initiated SSO URL Name": "demo"
-  * "Fine Grain SAML Endpoint Configuration" > "Assertion Consumer Service POST Binding URL" : "http://localhost:3000/assert"
-  * "Fine Grain SAML Endpoint Configuration" > "Logout Service POST Binding URL": "http://localhost:3000/logout" 
   * "Sign Assertion" true
   * "Encrypt Assertions: false - This needs to be off for now
+* Update "Fine Grain SAML Endpoint Configuration" properties
+  * "Assertion Consumer Service POST Binding URL": "http://localhost:3000/assert"
+  * "Logout Service POST Binding URL": "http://localhost:3000/logout" 
+  
 * Save
 * Once created, go into "SAML Keys" tab
 * Copy the certificate key to `service-provider/cert-file.crt` and the private key to `service-provider/key-file.pem`

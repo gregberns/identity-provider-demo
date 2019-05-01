@@ -14,6 +14,8 @@ services:
       DB_PASSWORD: password
       KEYCLOAK_USER_FILE: /run/secrets/keycloak_user
       KEYCLOAK_PASSWORD_FILE: /run/secrets/keycloak_password
+      # https://stackoverflow.com/a/47200330/684966
+      PROXY_ADDRESS_FORWARDING: true
     secrets:
       - keycloak_user
       - keycloak_password
